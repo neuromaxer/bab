@@ -7,7 +7,7 @@ Repo for Blockchain at Berkeley courses
 | --- | --- |
 | [Lectures](https://www.youtube.com/playlist?list=PLSONl1AVlZNWJVixT2vwY9-6O7kgM4het) | [Lectures](https://www.youtube.com/playlist?list=PLSONl1AVlZNXUhgIrfgI6E3ayShvKI-o6) |
 | [Resources](https://blockchain.berkeley.edu/courses/spring-2021-developers-decal/) | [Resources](https://blockchain.berkeley.edu/courses/spring-2021-fundamentals-decal/) |
-| | [Repository](https://github.com/BerkeleyBlockchain/dev-decal-sp21)
+| [Repository](https://github.com/BerkeleyBlockchain/dev-decal-sp21) | 
 
 
 ## Workload 
