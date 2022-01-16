@@ -21,3 +21,8 @@ Expected pace is 2 Fundamentals Lectures and 1 Dev Lecture per week. However, on
 | 3) 6.12.21 - 12.12.21 | - | - | 1 | Week dedicated to PS 1 
 | 4) 13.12.21 - 19.12.21 | 7 | 2 | 1 | Finish PS 1 and continue with the lectures 
 | 5) | | | | 
+
+
+## Misc
+
+* [Modern Blockchain Development series from Near](https://www.youtube.com/playlist?list=PL9tzQn_TEuFWweVbfTbaedFdwVrvaYPq4)
