@@ -4,6 +4,7 @@
 !.gitignore
 !.editorconfig
 !.pre-commit-config.yaml
+!.ecrc
 
 *.py[co]
 *.whl
