@@ -1,0 +1,15 @@
+{
+  "Verbose": false,
+  "Debug": false,
+  "IgnoreDefaults": false,
+  "SpacesAftertabs": false,
+  "NoColor": false,
+  "Exclude": [
+    "\\.txt$",
+    "README.md",
+    "package.json",
+    "package-lock.json"
+  ],
+  "AllowedContentTypes": [],
+  "PassedFiles": []
+}
