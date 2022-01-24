@@ -42,7 +42,7 @@ make install
 ```shell
 pre-commit install
 ```
-5. Run linter
+4. Run linter
 ```shell
 make lint
 ```
