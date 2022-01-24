@@ -1,10 +1,16 @@
+venv/
+node_modules/
+
 .*
-!.python-version
 !.github
 !.gitignore
 !.editorconfig
 !.pre-commit-config.yaml
 !.ecrc
+!.solhint.json
+!.solhintignore
+!.prettierignore
+!.prettierrc
 
 *.py[co]
 *.whl

@@ -22,11 +22,14 @@ indent_size = 4
 indent_style = space
 indent_size = 2
 
-[*.{toml,json,ini,txt,cmake}]
+[*.{toml,ini,txt,cmake}]
 indent_style = space
 indent_size = 4
 
-[Makefile]
+[*.json]
+indent_size = 2
+
+[*Makefile]
 indent_style = tab
 indent_size = 8
 
