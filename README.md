@@ -25,3 +25,32 @@ Expected pace is 2 Fundamentals Lectures and 1 Dev Lecture per week. However, on
 
 * [Modern Blockchain Development series from Near](https://www.youtube.com/playlist?list=PL9tzQn_TEuFWweVbfTbaedFdwVrvaYPq4)
 * [Blockchain and Money Course from MIT](https://www.youtube.com/playlist?list=PLUl4u3cNGP63UUkfL0onkxF6MYgVa04Fn)
+
+
+## Development
+
+1. Create virtual environment
+```shell
+python -m venv venv
+source venv/bin/activate
+```
+2. Install project dependencies
+```shell
+make install
+```
+3. Configure pre-commit
+```shell
+pre-commit install
+```
+5. Run linter
+```shell
+make lint
+```
+5. Fix style errors
+```shell
+make fix
+```
+
+### Style guides
+- Flake8 rules: https://lintlyci.github.io/Flake8Rules/
+- Solhint rules: https://protofire.github.io/solhint/docs/rules.html
