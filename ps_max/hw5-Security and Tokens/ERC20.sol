@@ -1,42 +1,51 @@
 pragma solidity ^0.5.00;
 
-
 contract SafeMath {
-    function safeAdd(uint a, uint b) public pure returns (uint c) {
+    function safeAdd(uint256 a, uint256 b) public pure returns (uint256 c) {
         c = a + b;
-        require(c >= a);
+        require(c >= a, _);
     }
-    function safeSub(uint a, uint b) public pure returns (uint c) {
-        require(b <= a);
+
+    function safeSub(uint256 a, uint256 b) public pure returns (uint256 c) {
+        require(b <= a, _);
         c = a - b;
     }
-    function safeMul(uint a, uint b) public pure returns (uint c) {
+
+    function safeMul(uint256 a, uint256 b) public pure returns (uint256 c) {
         c = a * b;
-        require(a == 0 || c / a == b);
+        require(a == 0 || c / a == b, _);
     }
-    function safeDiv(uint a, uint b) public pure returns (uint c) {
-        require(b > 0);
+
+    function safeDiv(uint256 a, uint256 b) public pure returns (uint256 c) {
+        require(b > 0, _);
         c = a / b;
     }
 }
-
 
 // ----------------------------------------------------------------------------
 // ERC Token Standard #20 Interface
 // https://github.com/ethereum/EIPs/blob/master/EIPS/eip-20-token-standard.md
 // ----------------------------------------------------------------------------
 contract ERC20Interface {
-    function totalSupply() public view returns (uint);
-    function balanceOf(address tokenOwner) public view returns (uint balance);
-    function allowance(address tokenOwner, address spender) public view returns (uint remaining);
-    function transfer(address to, uint tokens) public returns (bool success);
-    function approve(address spender, uint tokens) public returns (bool success);
-    function transferFrom(address from, address to, uint tokens) public returns (bool success);
+    event Transfer(address indexed from, address indexed to, uint256 tokens);
+    event Approval(address indexed tokenOwner, address indexed spender, uint256 tokens);
 
-    event Transfer(address indexed from, address indexed to, uint tokens);
-    event Approval(address indexed tokenOwner, address indexed spender, uint tokens);
+    function transfer(address to, uint256 tokens) public returns (bool success);
+
+    function approve(address spender, uint256 tokens) public returns (bool success);
+
+    function transferFrom(
+        address from,
+        address to,
+        uint256 tokens
+    ) public returns (bool success);
+
+    function totalSupply() public view returns (uint256);
+
+    function balanceOf(address tokenOwner) public view returns (uint256 balance);
+
+    function allowance(address tokenOwner, address spender) public view returns (uint256 remaining);
 }
-
 
 // ----------------------------------------------------------------------------
 // Contract function to receive approval and execute function in one call
@@ -44,9 +53,13 @@ contract ERC20Interface {
 // Borrowed from MiniMeToken
 // ----------------------------------------------------------------------------
 contract ApproveAndCallFallBack {
-    function receiveApproval(address from, uint256 tokens, address token, bytes memory data) public;
+    function receiveApproval(
+        address from,
+        uint256 tokens,
+        address token,
+        bytes memory data
+    ) public;
 }
-
 
 // ----------------------------------------------------------------------------
 // Owned contract
@@ -57,40 +70,40 @@ contract Owned {
 
     event OwnershipTransferred(address indexed _from, address indexed _to);
 
-    constructor() public {
-        owner = msg.sender;
+    modifier onlyOwner() {
+        require(msg.sender == owner, _);
+        _;
     }
 
-    modifier onlyOwner {
-        require(msg.sender == owner);
-        _;
+    constructor() public {
+        owner = msg.sender;
     }
 
     function transferOwnership(address _newOwner) public onlyOwner {
         newOwner = _newOwner;
     }
+
     function acceptOwnership() public {
-        require(msg.sender == newOwner);
+        require(msg.sender == newOwner, _);
         emit OwnershipTransferred(owner, newOwner);
         owner = newOwner;
         newOwner = address(0);
     }
 }
 
-
 // ----------------------------------------------------------------------------
 // ERC20 Token, with the addition of symbol, name and decimals and assisted
 // token transfers
 // ----------------------------------------------------------------------------
+// solhint-disable-next-line contract-name-camelcase
 contract dddToken is ERC20Interface, Owned, SafeMath {
     string public symbol;
-    string public  name;
+    string public name;
     uint8 public decimals;
-    uint public _totalSupply;
+    uint256 public _totalSupply;
 
-    mapping(address => uint) balances;
-    mapping(address => mapping(address => uint)) allowed;
-
+    mapping(address => uint256) internal balances;
+    mapping(address => mapping(address => uint256)) internal allowed;
 
     // ------------------------------------------------------------------------
     // Constructor
@@ -104,35 +117,24 @@ contract dddToken is ERC20Interface, Owned, SafeMath {
         emit Transfer(address(0), 0xB8C9C69424892E40D526b6E6F588B16324481592, _totalSupply);
     }
 
-
     // ------------------------------------------------------------------------
-    // Total supply
+    // Don't accept ETH
     // ------------------------------------------------------------------------
-    function totalSupply() public view returns (uint) {
-        return _totalSupply - balances[address(0)];
+    function() external payable {
+        revert(_);
     }
-
-
-    // ------------------------------------------------------------------------
-    // Get the token balance for account tokenOwner
-    // ------------------------------------------------------------------------
-    function balanceOf(address tokenOwner) public view returns (uint balance) {
-        return balances[tokenOwner];
-    }
-
 
     // ------------------------------------------------------------------------
     // Transfer the balance from token owner's account to to account
     // - Owner's account must have sufficient balance to transfer
     // - 0 value transfers are allowed
     // ------------------------------------------------------------------------
-    function transfer(address to, uint tokens) public returns (bool success) {
+    function transfer(address to, uint256 tokens) public returns (bool success) {
         balances[msg.sender] = safeSub(balances[msg.sender], tokens);
         balances[to] = safeAdd(balances[to], tokens);
         emit Transfer(msg.sender, to, tokens);
         return true;
     }
-
 
     // ------------------------------------------------------------------------
     // Token owner can approve for spender to transferFrom(...) tokens
@@ -142,12 +144,11 @@ contract dddToken is ERC20Interface, Owned, SafeMath {
     // recommends that there are no checks for the approval double-spend attack
     // as this should be implemented in user interfaces
     // ------------------------------------------------------------------------
-    function approve(address spender, uint tokens) public returns (bool success) {
+    function approve(address spender, uint256 tokens) public returns (bool success) {
         allowed[msg.sender][spender] = tokens;
         emit Approval(msg.sender, spender, tokens);
         return true;
     }
-
 
     // ------------------------------------------------------------------------
     // Transfer tokens from the from account to the to account
@@ -158,7 +159,11 @@ contract dddToken is ERC20Interface, Owned, SafeMath {
     // - Spender must have sufficient allowance to transfer
     // - 0 value transfers are allowed
     // ------------------------------------------------------------------------
-    function transferFrom(address from, address to, uint tokens) public returns (bool success) {
+    function transferFrom(
+        address from,
+        address to,
+        uint256 tokens
+    ) public returns (bool success) {
         balances[from] = safeSub(balances[from], tokens);
         allowed[from][msg.sender] = safeSub(allowed[from][msg.sender], tokens);
         balances[to] = safeAdd(balances[to], tokens);
@@ -166,41 +171,48 @@ contract dddToken is ERC20Interface, Owned, SafeMath {
         return true;
     }
 
-
-    // ------------------------------------------------------------------------
-    // Returns the amount of tokens approved by the owner that can be
-    // transferred to the spender's account
-    // ------------------------------------------------------------------------
-    function allowance(address tokenOwner, address spender) public view returns (uint remaining) {
-        return allowed[tokenOwner][spender];
-    }
-
-
     // ------------------------------------------------------------------------
     // Token owner can approve for spender to transferFrom(...) tokens
     // from the token owner's account. The spender contract function
     // receiveApproval(...) is then executed
     // ------------------------------------------------------------------------
-    function approveAndCall(address spender, uint tokens, bytes memory data) public returns (bool success) {
+    function approveAndCall(
+        address spender,
+        uint256 tokens,
+        bytes memory data
+    ) public returns (bool success) {
         allowed[msg.sender][spender] = tokens;
         emit Approval(msg.sender, spender, tokens);
         ApproveAndCallFallBack(spender).receiveApproval(msg.sender, tokens, address(this), data);
         return true;
     }
 
-
-    // ------------------------------------------------------------------------
-    // Don't accept ETH
-    // ------------------------------------------------------------------------
-    function () external payable {
-        revert();
-    }
-
-
     // ------------------------------------------------------------------------
     // Owner can transfer out any accidentally sent ERC20 tokens
     // ------------------------------------------------------------------------
-    function transferAnyERC20Token(address tokenAddress, uint tokens) public onlyOwner returns (bool success) {
+    function transferAnyERC20Token(address tokenAddress, uint256 tokens) public onlyOwner returns (bool success) {
         return ERC20Interface(tokenAddress).transfer(owner, tokens);
+    }
+
+    // ------------------------------------------------------------------------
+    // Total supply
+    // ------------------------------------------------------------------------
+    function totalSupply() public view returns (uint256) {
+        return _totalSupply - balances[address(0)];
+    }
+
+    // ------------------------------------------------------------------------
+    // Get the token balance for account tokenOwner
+    // ------------------------------------------------------------------------
+    function balanceOf(address tokenOwner) public view returns (uint256 balance) {
+        return balances[tokenOwner];
+    }
+
+    // ------------------------------------------------------------------------
+    // Returns the amount of tokens approved by the owner that can be
+    // transferred to the spender's account
+    // ------------------------------------------------------------------------
+    function allowance(address tokenOwner, address spender) public view returns (uint256 remaining) {
+        return allowed[tokenOwner][spender];
     }
 }

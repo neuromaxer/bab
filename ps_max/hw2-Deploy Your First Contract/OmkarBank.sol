@@ -1,17 +1,16 @@
-pragma solidity ^0.4.25;
+pragma solidity ^0.6.0;
 
 contract SimpleBank {
-
-    mapping (address => uint) private balances;
+    mapping(address => uint256) private balances;
     address public owner;
-    event LogDepositMade(address accountAddress, uint amount);
+    event LogDepositMade(address accountAddress, uint256 amount);
 
-    constructor () public {
+    constructor() public {
         owner = msg.sender;
     }
 
-    function deposit() public payable returns (uint) {
-        require((balances[msg.sender] + msg.value) >= balances[msg.sender]);
+    function deposit() public payable returns (uint256) {
+        require((balances[msg.sender] + msg.value) >= balances[msg.sender], _);
 
         balances[msg.sender] += msg.value;
 
@@ -20,8 +19,8 @@ contract SimpleBank {
         return balances[msg.sender];
     }
 
-    function withdraw(uint withdrawAmount) public returns (uint remainingBal) {
-        require(withdrawAmount <= balances[msg.sender]);
+    function withdraw(uint256 withdrawAmount) public returns (uint256 remainingBal) {
+        require(withdrawAmount <= balances[msg.sender], "Insufficient funds.");
 
         balances[msg.sender] -= withdrawAmount;
 
@@ -30,8 +29,7 @@ contract SimpleBank {
         return balances[msg.sender];
     }
 
-
-    function balance() view public returns (uint) {
+    function balance() public view returns (uint256) {
         return balances[msg.sender];
     }
 }
