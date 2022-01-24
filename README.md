@@ -3,11 +3,11 @@ Repo for Blockchain at Berkeley courses
 
 ## Courses
 
-| **Blockchain Development**                                                           | **Blockchain Fundamentals**                                                          |
-|--------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------|
-| [Lectures](https://www.youtube.com/playlist?list=PLSONl1AVlZNWJVixT2vwY9-6O7kgM4het) | [Lectures](https://www.youtube.com/playlist?list=PLSONl1AVlZNXUhgIrfgI6E3ayShvKI-o6) |
-| [Resources](https://blockchain.berkeley.edu/courses/spring-2021-developers-decal/)   | [Resources](https://blockchain.berkeley.edu/courses/spring-2021-fundamentals-decal/) |
-| [Repository](https://github.com/BerkeleyBlockchain/dev-decal-sp21)                   |                                                                                      |
+| **Blockchain Development**                                                                                                                               | **Blockchain Fundamentals**                                                          |
+|----------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------|
+| [Lectures](https://www.youtube.com/playlist?list=PLSONl1AVlZNWJVixT2vwY9-6O7kgM4het)                                                                     | [Lectures](https://www.youtube.com/playlist?list=PLSONl1AVlZNXUhgIrfgI6E3ayShvKI-o6) |
+| [Resources](https://blockchain.berkeley.edu/courses/spring-2021-developers-decal/)                                                                       | [Resources](https://blockchain.berkeley.edu/courses/spring-2021-fundamentals-decal/) |
+| [Repository [2021]](https://github.com/BerkeleyBlockchain/dev-decal-sp21) <br/>[Repository [2020]](https://github.com/BerkeleyBlockchain/dev-decal-sp20) |                                                                                      |
 
 ## Workload
 
@@ -29,7 +29,7 @@ Expected pace is 2 Fundamentals Lectures and 1 Dev Lecture per week. However, on
 
 ## Development
 
-1. Create virtual environment
+1. Create a virtual environment
 ```shell
 python -m venv venv
 source venv/bin/activate
@@ -42,7 +42,7 @@ make install
 ```shell
 pre-commit install
 ```
-4. Run linter
+4. Run linters
 ```shell
 make lint
 ```
@@ -55,3 +55,13 @@ make fix
 - Flake8 rules: https://lintlyci.github.io/Flake8Rules/
 - Solhint rules: https://protofire.github.io/solhint/docs/rules.html
 - Commit messages (optional): https://gist.github.com/joshbuchea/6f47e86d2510bce28f8e7f42ae84c716
+
+### Requirements
+1. Sync requirements (install missing packages, delete the redundant once, bump versions)
+```shell
+make sync-requirements
+```
+2. Compile requirements*.txt (required after changing requirements*.in)
+```shell
+make compile-requirements
+```
