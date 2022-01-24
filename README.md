@@ -54,3 +54,4 @@ make fix
 ### Style guides
 - Flake8 rules: https://lintlyci.github.io/Flake8Rules/
 - Solhint rules: https://protofire.github.io/solhint/docs/rules.html
+- Commit messages (optional): https://gist.github.com/joshbuchea/6f47e86d2510bce28f8e7f42ae84c716
