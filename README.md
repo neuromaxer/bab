@@ -35,9 +35,14 @@ python -m venv venv
 source venv/bin/activate
 ```
 2. Install project dependencies
-```shell
-make install
-```
+    * Install common dependencies
+    ```shell
+    make install
+    ```
+   * Sync requirements*
+   ```shell
+   make sync-requirements
+   ```
 3. Configure pre-commit
 ```shell
 pre-commit install
