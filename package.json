@@ -26,4 +26,11 @@
     "solhint": "^3.3.6",
     "solhint-plugin-prettier": "^0.0.5"
   }
+  {
+    "husky": {
+      "hooks": {
+         "pre-push": "npm run prettier:solidity"
+      }
+    }
+  }
 }
