@@ -7,7 +7,6 @@
   "Exclude": [
     "migrations*",
     "node_modules*",
-    "_tasks/**",
     "\\.txt$",
     "README.md",
     "package.json",

@@ -3,4 +3,3 @@ venv/
 venv_*
 
 migrations/
-_tasks/
