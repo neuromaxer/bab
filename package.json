@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "solhint": "solhint -f unix */**/*.sol",
-    "prettier:solidity:fix": "prettier --write */**/*.sol"
+    "prettier:solidity:fix": "prettier --write */**/*.sol",
+    "prepare": "husky install"
   },
   "repository": {
     "type": "git",
@@ -19,6 +20,7 @@
   },
   "homepage": "https://github.com/neuromaxer/bab#readme",
   "devDependencies": {
+    "husky": "^7.0.4",
     "prettier": "^2.5.1",
     "prettier-plugin-solidity": "^1.0.0-beta.19",
     "solhint": "^3.3.6",
