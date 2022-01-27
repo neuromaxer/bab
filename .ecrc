@@ -8,6 +8,7 @@
     "migrations*",
     "node_modules*",
     "\\.txt$",
+    "\\.ipynb$",
     "README.md",
     "package.json",
     "package-lock.json"
