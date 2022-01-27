@@ -3,15 +3,9 @@
   "version": "1.0.0",
   "description": "Repo for Blockchain at Berkeley courses",
   "main": "index.js",
-  "husky": {
-    "hooks": {
-      "pre-push": "npm run prettier:solidity"
-    }
-  },
   "scripts": {
     "solhint": "solhint -f unix */**/*.sol",
-    "prettier:solidity:fix": "prettier --write */**/*.sol",
-    "prepare": "husky install"
+    "prettier:solidity:fix": "prettier --write */**/*.sol"
   },
   "repository": {
     "type": "git",
@@ -25,7 +19,6 @@
   },
   "homepage": "https://github.com/neuromaxer/bab#readme",
   "devDependencies": {
-    "husky": "^7.0.4",
     "prettier": "^2.5.1",
     "prettier-plugin-solidity": "^1.0.0-beta.19",
     "solhint": "^3.3.6",
