@@ -20,8 +20,19 @@ repos:
       ]
       verbose: true
 - repo: https://github.com/pycqa/isort
-  rev: 5.10.1
+  rev: '5.10.1'
   hooks:
     - id: isort
       name: Run isort
       alias: isort -qc .
+- repo: local
+  hooks:
+  - id: solhint
+    name: Run solhint linter
+    entry: solhint
+    language: node
+    files: \.sol$
+    additional_dependencies: [
+        'https://github.com/protofire/solhint',
+        'https://github.com/fvictorio/solhint-plugin-prettier'
+    ]
