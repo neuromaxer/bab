@@ -15,3 +15,8 @@ node_modules/
 
 *.py[co]
 *.whl
+
+drafts/
+
+*.env
+!*example.env
