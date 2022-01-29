@@ -25,6 +25,7 @@ Expected pace is 2 Fundamentals Lectures and 1 Dev Lecture per week. However, on
 
 * [Modern Blockchain Development series from Near](https://www.youtube.com/playlist?list=PL9tzQn_TEuFWweVbfTbaedFdwVrvaYPq4)
 * [Blockchain and Money Course from MIT](https://www.youtube.com/playlist?list=PLUl4u3cNGP63UUkfL0onkxF6MYgVa04Fn)
+* [Solidity YouTube Tutorial](https://www.youtube.com/playlist?list=PL16WqdAj66SCOdL6XIFbke-XQg2GW_Avg) (bit outdated but really well-delivered)
 
 
 ## Development
