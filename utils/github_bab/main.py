@@ -1,15 +1,17 @@
 from __future__ import annotations
 
+import argparse
 import logging
+import sys
 import time
 from datetime import datetime, timedelta
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Sequence
 
 from bab_types import GithubIssue, GithubMilestone, GithubProject
 from client import bab_repo
 from constants import (
     BAB_BASE_PROJECT_COLUMN_NAMES, BAB_BASE_PROJECT_DEFAULT_CARD_CONTENT_TYPE, BAB_BASE_PROJECT_DEFAULT_COLUMN,
-    BAB_CONTRIBUTOR_USERNAMES, BAB_WEEKS_COUNT,
+    BAB_WEEKS_COUNT,
 )
 
 
@@ -25,7 +27,8 @@ log = logging.getLogger(__name__)
 
 class GithubBabService:
 
-    def __init__(self):
+    def __init__(self, contributors: list[str]):
+        self.contributors = contributors
         self.repo = bab_repo
 
     def _create_milestone(self, milestone_data: GithubMilestone) -> Milestone:
@@ -98,7 +101,7 @@ class GithubBabService:
             self._process_user_issues(due_on_date, user_project_default_column, username, week_id)
 
     def execute(self):
-        for username in BAB_CONTRIBUTOR_USERNAMES:
+        for username in self.contributors:
             log.debug(f"Process user: {username}")
             self.process_user(username)
             log.debug(f"Finished processing user: {username}")
@@ -106,6 +109,30 @@ class GithubBabService:
             log.debug("Sleep 5 seconds to avoid hitting the rate limits.")
 
 
-if __name__ == "__main__":
-    bab_service = GithubBabService()
+def _prepare_parser() -> argparse.ArgumentParser:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-c", "--contributors", nargs="+", help="<Required> List of contributors", required=True)
+    return parser
+
+
+def _run(args: Sequence[str]) -> bool:
+    parser = _prepare_parser()
+    parsed_args = parser.parse_args(args)
+    contributors = parsed_args.contributors
+    bab_service = GithubBabService(contributors=contributors)
     bab_service.execute()
+    return True
+
+
+def run(args: Sequence[str] | None = None) -> bool:
+    if args is None:
+        args = sys.argv[1:]
+    try:
+        return _run(args)
+    except SystemExit as exc:
+        return exc.code == 0
+
+
+if __name__ == "__main__":
+    ok = run()
+    sys.exit(0 if ok else 1)

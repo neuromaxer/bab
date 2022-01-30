@@ -7,12 +7,6 @@ class GithubMilestoneState(Enum):
     CLOSED = "closed"
 
 
-BAB_CONTRIBUTOR_USERNAMES: Final[tuple[str, ...]] = (
-    "ReznikovRoman",
-    "neuromaxer",
-    "dzxterity",
-)
-
 BAB_BASE_PROJECT_DEFAULT_COLUMN: Final[str] = "To Do"
 BAB_BASE_PROJECT_COLUMN_NAMES: Final[tuple[str, ...]] = (
     "In Progress",
