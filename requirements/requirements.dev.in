@@ -1,0 +1,4 @@
+-c requirements.txt
+
+PyGithub==1.55
+python-dotenv==0.19.2
